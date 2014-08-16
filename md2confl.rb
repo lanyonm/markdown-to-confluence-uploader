@@ -79,8 +79,8 @@ rescue Exception => ex
   warn "There was an error running the converter: \n#{ex}"
 end
 
-@convertedText = "#{@convertedText}\n\n(rendered at #{Time.now.getutc} by confluence-uploader)"
+@convertedText = "#{@convertedText}\n\n(rendered at #{Time.now.getutc} by md2confl)"
 
 uploader_page.content = cs.convert_wiki_to_storage_format(@convertedText)
-options = {minorEdit: true, versionComment: 'updated by confluence-uploader'}
+options = {minorEdit: true, versionComment: 'updated by md2confl'}
 cs.update_page(uploader_page)
