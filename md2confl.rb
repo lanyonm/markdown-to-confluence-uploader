@@ -9,7 +9,6 @@ options = {}
 optparse = OptionParser.new do|opts|
   opts.banner = "Usage: md2confl.rb [options...] -s <SPACE_NAME> -i <PAGE_ID>\nassumes defaults that can be set in options parsing..."
 
-  # 11437310
   options[:pageId] = nil
   opts.on('-i', '--pageId PAGE_ID', 'REQUIRED. The Confluence page id to upload the converted markdown to.') do |pageId|
     options[:pageId] = pageId
@@ -65,7 +64,7 @@ password = ENV['CONFLUENCE_PASSWORD'] || options[:password] || ''
 opts = options[:verbose] ? {} : {log: false}
 cs = ConfluenceSoap.new("#{options[:server]}/rpc/soap-axis/confluenceservice-v2?wsdl", user, password, opts)
 
-pages = cs.get_pages("NNA")
+pages = cs.get_pages(options[:spaceName])
 uploader_page = pages.detect { |page| page.id == options[:pageId] }
 
 if uploader_page.nil?
